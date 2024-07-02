@@ -10,7 +10,7 @@ for artifact in "drill"; do
   aws cloudfront get-function --name $artifact --stage LIVE output >/dev/null 2>&1
 
   #package_latest_version=$(jq -r '.version' "$artifact/package.json")
-  package_latest_version="1.0.0-beta"
+  package_latest_version="1.0.1-beta"
   cloudfront_current_version=$(egrep 'request.uri =' output | awk -F"/" '{ print $6 }')
 
   if [ $package_latest_version != $cloudfront_current_version ]; then

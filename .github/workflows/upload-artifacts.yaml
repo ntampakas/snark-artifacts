@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - update_last_ver
     paths:
       - 'packages/**'
       - '!packages/artifacts/**'
@@ -46,6 +47,10 @@ jobs:
         run: |
           sudo apt install git-restore-mtime
 
-      - name: Upload artifacts to S3 bucket
+#      - name: Upload artifacts to S3 bucket
+#        run: |
+#          .github/scripts/upload-artifacts.sh
+
+      - name: Update CloudFront last version
         run: |
-          .github/scripts/upload-artifacts.sh
+          .github/scripts/update-cloudfront.sh

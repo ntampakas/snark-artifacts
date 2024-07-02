@@ -1,4 +1,5 @@
 #!/bin/bash
+exit 0
 set -ex
 
 s3_bucket="snark-artifacts"

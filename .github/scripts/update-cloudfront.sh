@@ -18,8 +18,10 @@ for artifact in "drill"; do
     sed -i "s/$cloudfront_current_version/$package_latest_version/" output
     etag=$(aws cloudfront describe-function --name $artifact --query 'ETag' --output text)
     aws cloudfront update-function --name $artifact --if-match $etag --function-config '{"Comment": "Update version", "Runtime": "cloudfront-js-2.0"}' --function-code fileb://output >/dev/null 2>&1
-    #etag=$(aws cloudfront describe-function --name $artifact --query 'ETag' --output text)
-    #aws cloudfront publish-function --name $artifact --if-match $etag
+    echo "Updating $artifact function"
+    etag=$(aws cloudfront describe-function --name $artifact --query 'ETag' --output text)
+    aws cloudfront publish-function --name $artifact --if-match $etag
+    echo "Publishing $artifact"
   else
     echo "No changes applied for $artifact"
   fi

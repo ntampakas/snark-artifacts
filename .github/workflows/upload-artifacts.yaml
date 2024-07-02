@@ -51,6 +51,6 @@ jobs:
 #        run: |
 #          .github/scripts/upload-artifacts.sh
 
-      - name: Update CloudFront last version
+      - name: Update CloudFront
         run: |
           .github/scripts/update-cloudfront.sh

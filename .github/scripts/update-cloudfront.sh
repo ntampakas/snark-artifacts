@@ -8,10 +8,11 @@ cd packages
 for artifact in $artifacts; do
   aws cloudfront get-function --name $artifact --stage LIVE output >/dev/null 2>&1
 
-  package_latest_version=$(jq -r '.version' "$artifact/package.json")
-  package_current_version=$(egrep 'request.uri =' output | awk -F"/" '{ print $6 }')
+  #package_latest_version=$(jq -r '.version' "$artifact/package.json")
+  package_latest_version="1.0.0-beta"
+  cloudfront_current_version=$(egrep 'request.uri =' output | awk -F"/" '{ print $6 }')
 
-  if [ $package_latest_version != $package_current_version ]; then
+  if [ $package_latest_version != $cloudfront_current_version ]; then
     echo "Modify function"
     sed -i "s/$current_version/$latest_version/" output
     etag=$(aws cloudfront describe-function --name $package --query 'ETag' --output text)

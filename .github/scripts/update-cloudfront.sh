@@ -16,9 +16,9 @@ for artifact in $artifacts; do
     echo "Modify function"
     sed -i "s/$cloudfront_current_version/$package_latest_version/" output
     etag=$(aws cloudfront describe-function --name $artifact --query 'ETag' --output text)
-    aws cloudfront update-function --name $artifact --if-match $etag --function-config '{"Comment": "Update version", "Runtime": "cloudfront-js-2.0"}' --function-code fileb://output
+    aws cloudfront update-function --name $artifact --if-match $etag --function-config '{"Comment": "Update version", "Runtime": "cloudfront-js-2.0"}' --function-code fileb://output >/dev/null 2>&1
     #etag=$(aws cloudfront describe-function --name $artifact --query 'ETag' --output text)
-    #aws cloudfront publish-function --name $artifact --if-match $etag
+    #aws cloudfront publish-function --name $artifact --if-match $etag >/dev/null 2>&1
   else
     echo "No changes"
   fi

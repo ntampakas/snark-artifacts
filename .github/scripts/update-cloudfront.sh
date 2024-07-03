@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 artifacts=$(ls packages/ | grep -v 'artifacts\|cli')
 

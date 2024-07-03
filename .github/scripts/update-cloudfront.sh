@@ -17,7 +17,7 @@ for artifact in "poseidon"; do
     echo "Modifying $artifact function"
     sed -i "s/$cloudfront_current_version/$package_latest_version/" output
     etag=$(aws cloudfront describe-function --name $artifact --query 'ETag' --output text)
-    aws cloudfront update-function --name $artifact --if-match $etag --function-config '{"Comment": \"$artifact\", "Runtime": "cloudfront-js-2.0"}' --function-code fileb://output >/dev/null 2>&1
+    aws cloudfront update-function --name $artifact --if-match $etag --function-config '{"Comment": "'"$artifact"'", "Runtime": "cloudfront-js-2.0"}' --function-code fileb://output >/dev/null 2>&1
     echo "Updating $artifact function"
     #etag=$(aws cloudfront describe-function --name $artifact --query 'ETag' --output text)
     #aws cloudfront publish-function --name $artifact --if-match $etag >/dev/null 2>&1

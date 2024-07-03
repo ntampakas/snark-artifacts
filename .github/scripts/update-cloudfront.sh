@@ -6,7 +6,7 @@ artifacts=$(ls packages/ | grep -v 'artifacts\|cli')
 cd packages
 
 #for artifact in $artifacts; do
-for artifact in "poseidon"; do
+for artifact in "drill"; do
   aws cloudfront get-function --name $artifact --stage LIVE output >/dev/null 2>&1
 
   #package_latest_version=$(jq -r '.version' "$artifact/package.json")
